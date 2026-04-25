@@ -1,11 +1,257 @@
 [
     {
-        "name": "Alice Hill",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
+        "name": "Guinevere Robinson",
+        "title": "Senior Cloud Engineer",
+        "skills": "AWS, Kubernetes, Docker, Python, Bash",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Morien Wilson",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Juliet Harris",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
         "vibe": "Highly motivated, looking for a leadership role."
     },
-       {
+    {
+        "name": "Peggy Miller",
+        "title": "Sales Executive",
+        "skills": "B2B Sales, Salesforce, Lead Generation, Cold Calling, Contract Negotiation",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Tristan Jackson",
+        "title": "Customer Success Manager",
+        "skills": "Churn Reduction, Client Onboarding, Zendesk, Relationship Management, Upselling",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Ivan Martin",
+        "title": "Customer Success Manager",
+        "skills": "Churn Reduction, Client Onboarding, Zendesk, Relationship Management, Upselling",
+        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
+    },
+    {
+        "name": "Morien Brown",
+        "title": "Customer Success Manager",
+        "skills": "Churn Reduction, Client Onboarding, Zendesk, Relationship Management, Upselling",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
+        "name": "Mark Wilson",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Dinadan Brown",
+        "title": "Senior Cloud Engineer",
+        "skills": "AWS, Kubernetes, Docker, Python, Bash",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Trent Anderson",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
+    },
+    {
+        "name": "Walter Brown",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Bob Thomas",
+        "title": "Operations Manager",
+        "skills": "Process Optimization, Supply Chain, Logistics, Vendor Management, Six Sigma",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Percival Thompson",
+        "title": "Operations Manager",
+        "skills": "Process Optimization, Supply Chain, Logistics, Vendor Management, Six Sigma",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Grace Lee",
+        "title": "Senior Cloud Engineer",
+        "skills": "AWS, Kubernetes, Docker, Python, Bash",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Percival Lee",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Ivan Moore",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Bors Lewis",
+        "title": "Customer Success Manager",
+        "skills": "Churn Reduction, Client Onboarding, Zendesk, Relationship Management, Upselling",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Isolde Robinson",
+        "title": "RPA Developer",
+        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
+        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
+    },
+    {
+        "name": "Mark Brown",
+        "title": "Customer Success Manager",
+        "skills": "Churn Reduction, Client Onboarding, Zendesk, Relationship Management, Upselling",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Victor Taylor",
+        "title": "Sales Executive",
+        "skills": "B2B Sales, Salesforce, Lead Generation, Cold Calling, Contract Negotiation",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
+        "name": "Ivan Martin",
+        "title": "Data Engineer",
+        "skills": "Spark, Hadoop, Python, SQL, Snowflake",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
+        "name": "Arthur Jones",
+        "title": "Senior Cloud Engineer",
+        "skills": "AWS, Kubernetes, Docker, Python, Bash",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Percival Rodriguez",
+        "title": "Data Engineer",
+        "skills": "Spark, Hadoop, Python, SQL, Snowflake",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Trent Moore",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Gawain Garcia",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Frank Jones",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Romeo Miller",
+        "title": "AI Agent Developer",
+        "skills": "Python, LangChain, OpenAI API, Streamlit, Vector DBs",
+        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
+    },
+    {
+        "name": "Eve Harris",
+        "title": "RPA Developer",
+        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Heidi Miller",
+        "title": "RPA Developer",
+        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Percival Williams",
+        "title": "AI Agent Developer",
+        "skills": "Python, LangChain, OpenAI API, Streamlit, Vector DBs",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Romeo Clark",
+        "title": "RPA Developer",
+        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Morien Garcia",
+        "title": "Operations Manager",
+        "skills": "Process Optimization, Supply Chain, Logistics, Vendor Management, Six Sigma",
+        "vibe": "Passive. Will only respond to highly personalized, specific outreach."
+    },
+    {
+        "name": "Percival Anderson",
+        "title": "Marketing Coordinator",
+        "skills": "Social Media Management, SEO, Content Creation, Hootsuite, Mailchimp",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Diana Smith",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Charlie Harris",
+        "title": "Marketing Coordinator",
+        "skills": "Social Media Management, SEO, Content Creation, Hootsuite, Mailchimp",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Trent Jackson",
+        "title": "Data Engineer",
+        "skills": "Spark, Hadoop, Python, SQL, Snowflake",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Frank Anderson",
+        "title": "Sales Executive",
+        "skills": "B2B Sales, Salesforce, Lead Generation, Cold Calling, Contract Negotiation",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
+        "name": "Frank Miller",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Walter Walker",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
+        "name": "Judy Moore",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Walter Miller",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Juliet Rodriguez",
+        "title": "Cloud Automation Engineer",
+        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
+        "vibe": "Loves learning new skills, very enthusiastic and communicative."
+    },
+    {
         "name": "Guinevere Miller",
         "title": "Retail Store Manager",
         "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
@@ -51,300 +297,6 @@
         "name": "Heidi Lee",
         "title": "Retail Store Manager",
         "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Tristan Perez",
-        "title": "Frontend Engineer",
-        "skills": "React, TypeScript, CSS, HTML, Redux",
-        "vibe": "Loves learning new tech stacks, very enthusiastic and communicative."
-    },
-    {
-        "name": "Walter Baker",
-        "title": "Backend Python Developer",
-        "skills": "Python, Django, FastAPI, PostgreSQL, Redis",
-        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
-    },
-    {
-        "name": "Tor Young",
-        "title": "Full Stack Developer",
-        "skills": "MERN Stack, JavaScript, Node.js, MongoDB",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Eve Martin",
-        "title": "Frontend Engineer",
-        "skills": "React, TypeScript, CSS, HTML, Redux",
-        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
-    },
-    {
-        "name": "Griflet White",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Burnt out in current role, looking for better work-life balance."
-    },
-    {
-        "name": "Arthur Miller",
-        "title": "RPA Engineer",
-        "skills": "Automation Anywhere, Python, SQL, Exception Handling",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Walter Hall",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Lamorak Green",
-        "title": "Frontend Engineer",
-        "skills": "React, TypeScript, CSS, HTML, Redux",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Eve Hall",
-        "title": "Senior Cloud Engineer",
-        "skills": "AWS, Kubernetes, Docker, Python, Bash",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Heidi Evans",
-        "title": "Cloud Automation Engineer",
-        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Ector Taylor",
-        "title": "Backend Python Developer",
-        "skills": "Python, Django, FastAPI, PostgreSQL, Redis",
-        "vibe": "Loves learning new tech stacks, very enthusiastic and communicative."
-    },
-    {
-        "name": "Mark Jones",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Peggy Davis",
-        "title": "AI Agent Developer",
-        "skills": "Python, LangChain, OpenAI API, Streamlit, Vector DBs",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Mallory Phillips",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Comfortable in current job but open to remote opportunities with a salary bump."
-    },
-    {
-        "name": "Arthur Smith",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Highly motivated, looking for a leadership role."
-    },
-    {
-        "name": "Ivan White",
-        "title": "Backend Python Developer",
-        "skills": "Python, Django, FastAPI, PostgreSQL, Redis",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Arthur Roberts",
-        "title": "Cloud Automation Engineer",
-        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
-        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
-    },
-    {
-        "name": "Kay Williams",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Gawain Davis",
-        "title": "Cloud Automation Engineer",
-        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Victor Wright",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
-    },
-    {
-        "name": "Alice Wright",
-        "title": "RPA Engineer",
-        "skills": "Automation Anywhere, Python, SQL, Exception Handling",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Pelleas Hill",
-        "title": "RPA Developer",
-        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Judy Lewis",
-        "title": "RPA Developer",
-        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
-        "vibe": "Loves learning new tech stacks, very enthusiastic and communicative."
-    },
-    {
-        "name": "Ivan Wilson",
-        "title": "Machine Learning Engineer",
-        "skills": "PyTorch, TensorFlow, Scikit-Learn, Python",
-        "vibe": "Very passive. Will only respond to highly personalized, specific outreach."
-    },
-    {
-        "name": "Palomides Perez",
-        "title": "Cloud Automation Engineer",
-        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Peggy Moore",
-        "title": "Systems Administrator",
-        "skills": "Windows Server, Linux, PowerShell, Bash, VMware",
-        "vibe": "Loves learning new tech stacks, very enthusiastic and communicative."
-    },
-    {
-        "name": "Eve Perez",
-        "title": "Cybersecurity Analyst",
-        "skills": "Splunk, Wireshark, SIEM, Penetration Testing",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Arthur Smith",
-        "title": "Full Stack Developer",
-        "skills": "MERN Stack, JavaScript, Node.js, MongoDB",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Gawain Jackson",
-        "title": "DevOps Engineer",
-        "skills": "Jenkins, GitLab CI/CD, Terraform, Ansible, AWS",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Judy Miller",
-        "title": "RPA Developer",
-        "skills": "UiPath, Blue Prism, Python, PowerShell, API Integration",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Gareth Taylor",
-        "title": "DevOps Engineer",
-        "skills": "Jenkins, GitLab CI/CD, Terraform, Ansible, AWS",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Mark Nelson",
-        "title": "Full Stack Developer",
-        "skills": "MERN Stack, JavaScript, Node.js, MongoDB",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Tristan Harris",
-        "title": "Frontend Engineer",
-        "skills": "React, TypeScript, CSS, HTML, Redux",
-        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
-    },
-    {
-        "name": "Bob Davis",
-        "title": "Full Stack Developer",
-        "skills": "MERN Stack, JavaScript, Node.js, MongoDB",
-        "vibe": "Highly motivated, looking for a leadership role."
-    },
-    {
-        "name": "Trent Taylor",
-        "title": "Full Stack Developer",
-        "skills": "MERN Stack, JavaScript, Node.js, MongoDB",
-        "vibe": "Loyal to current company, requires a massive counter-offer to even consider moving."
-    },
-    {
-        "name": "Mark Phillips",
-        "title": "DevOps Engineer",
-        "skills": "Jenkins, GitLab CI/CD, Terraform, Ansible, AWS",
-        "vibe": "Highly motivated, looking for a leadership role."
-    },
-    {
-        "name": "Kay Clark",
-        "title": "DevOps Engineer",
-        "skills": "Jenkins, GitLab CI/CD, Terraform, Ansible, AWS",
-        "vibe": "Highly motivated, looking for a leadership role."
-    },
-    {
-        "name": "Segwarides Wilson",
-        "title": "Data Engineer",
-        "skills": "Spark, Hadoop, Python, SQL, Snowflake",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Balin Smith",
-        "title": "AI Agent Developer",
-        "skills": "Python, LangChain, OpenAI API, Streamlit, Vector DBs",
-        "vibe": "Very passive. Will only respond to highly personalized, specific outreach."
-    },
-    {
-        "name": "Lancelot Johnson",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
-    },
-    {
-        "name": "Bors Parker",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Loves learning new tech stacks, very enthusiastic and communicative."
-    },
-    {
-        "name": "Percival Moore",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Very passive. Will only respond to highly personalized, specific outreach."
-    },
-    {
-        "name": "Peggy Roberts",
-        "title": "Cybersecurity Analyst",
-        "skills": "Splunk, Wireshark, SIEM, Penetration Testing",
-        "vibe": "Burnt out in current role, looking for better work-life balance."
-    },
-    {
-        "name": "Lucan Perez",
-        "title": "Cloud Automation Engineer",
-        "skills": "Azure Virtual Desktop, Citrix, PowerShell, Terraform",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Safir Perez",
-        "title": "VDI Specialist",
-        "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
-        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
-    },
-    {
-        "name": "Griflet Nelson",
-        "title": "IT Support Specialist",
-        "skills": "Active Directory, Office 365, Troubleshooting, Ticketing",
-        "vibe": "Passionate about automation and AI, looking for challenging problems."
-    },
-    {
-        "name": "Pellinore Scott",
-        "title": "AI Agent Developer",
-        "skills": "Python, LangChain, OpenAI API, Streamlit, Vector DBs",
-        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
-    },
-    {
-        "name": "Agravain Martin",
-        "title": "Cybersecurity Analyst",
-        "skills": "Splunk, Wireshark, SIEM, Penetration Testing",
-        "vibe": "Very passive. Will only respond to highly personalized, specific outreach."
-    },
-    {
-        "name": "Gareth Thompson",
-        "title": "RPA Engineer",
-        "skills": "Automation Anywhere, Python, SQL, Exception Handling",
         "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
     }
 ]
