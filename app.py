@@ -58,7 +58,7 @@ jd = st.text_area("Paste the Job Description here:", height=150)
 
 col1, col2 = st.columns([1, 2])
 with col1:
-    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=20, value=5)
+    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=50, value=5)
 
 if st.button("Start AI Agent Pipeline") and jd:
     candidates_to_screen = random.sample(all_candidates, num_to_screen)
@@ -97,8 +97,48 @@ if st.button("Start AI Agent Pipeline") and jd:
 
             else:
                 # --- LIVE API ENGINE ---
-                match_prompt = f"Job Description: {jd}\nCandidate Profile: {candidate['title']}, Skills: {candidate['skills']}\nCalculate a Match Score from 0 to 100. Output strictly in this format without any bolding:\nScore: [number]\nReason: [1 short sentence explainability]"
-                engagement_prompt = f"You are an AI recruiter. You sent this candidate ({candidate['name']}) a message. Based on their hidden vibe ({candidate['vibe']}), simulate a short reply. Assign an Interest Score from 0 to 100. Output strictly without bolding:\nReply: [Candidate's simulated message]\nInterest: [number]\nReasoning: [1 short sentence explaining why]"
+                match_prompt = f"""
+                You are an AI hiring evaluator.
+
+                Task:
+                Evaluate how well the candidate matches the job description.
+
+                Inputs:
+                Job Description: {jd}
+                Candidate Title: {candidate['title']}
+                Candidate Skills: {candidate['skills']}
+
+                Instructions:
+                - Return a match score between 0 and 100 (integer only).
+                - Base the score on skill overlap, relevance of title, and overall alignment.
+                - Do not assume missing information.
+                - Keep reasoning concise (max 15 words).
+
+                Output format (strict, no extra text, no bolding):
+                Score: <number>
+                Reason: <short explanation>
+                """
+                
+                engagement_prompt = f"""
+                You are an AI recruiter.
+
+                Task:
+                Simulate a candidate's reply to an outreach message and calculate their interest level.
+
+                Inputs:
+                Candidate Name: {candidate['name']}
+                Candidate Vibe/Status: {candidate['vibe']}
+
+                Instructions:
+                - Simulate a short, realistic email reply based solely on their vibe.
+                - Return an Interest Score between 0 and 100 (integer only).
+                - Keep reasoning concise (max 15 words).
+
+                Output format (strict, no extra text, no bolding):
+                Reply: <simulated message>
+                Interest: <number>
+                Reasoning: <short explanation>
+                """
                 
                 try:
                     match_response = model.generate_content(match_prompt).text.replace("**", "").replace("*", "")
@@ -118,7 +158,7 @@ if st.button("Start AI Agent Pipeline") and jd:
                     simulated_reply = "Simulation failed."
                     interest_reason = f"API Error: {str(e)[:40]}"
                 
-                time.sleep(6) 
+                time.sleep(6)
             
             # Save the data
             results.append({
