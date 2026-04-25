@@ -5,6 +5,54 @@
         "skills": "Citrix, VMware Horizon, Windows Server, PowerShell",
         "vibe": "Highly motivated, looking for a leadership role."
     },
+       {
+        "name": "Guinevere Miller",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Skeptical of recruiters, needs clear compensation and JD upfront to engage."
+    },
+    {
+        "name": "Juliet Rodriguez",
+        "title": "Marketing Coordinator",
+        "skills": "Social Media Management, SEO, Content Creation, Hootsuite, Mailchimp",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Morien Robinson",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Diana Martin",
+        "title": "Marketing Coordinator",
+        "skills": "Social Media Management, SEO, Content Creation, Hootsuite, Mailchimp",
+        "vibe": "Highly motivated, looking for a leadership role."
+    },
+    {
+        "name": "Guinevere Martin",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Mallory Martinez",
+        "title": "Marketing Coordinator",
+        "skills": "Social Media Management, SEO, Content Creation, Hootsuite, Mailchimp",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
+    {
+        "name": "Bors Garcia",
+        "title": "Financial Analyst",
+        "skills": "Financial Modeling, Excel, Variance Analysis, Forecasting, Budgeting",
+        "vibe": "Actively interviewing, eager to jump into a fast-paced startup environment."
+    },
+    {
+        "name": "Heidi Lee",
+        "title": "Retail Store Manager",
+        "skills": "Team Leadership, Inventory Management, Sales Forecasting, Customer Service, Merchandising",
+        "vibe": "Desperate to leave current toxic workplace, ready to start immediately."
+    },
     {
         "name": "Tristan Perez",
         "title": "Frontend Engineer",
