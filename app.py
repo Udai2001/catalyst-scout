@@ -17,17 +17,14 @@ if not api_key:
 genai.configure(api_key=api_key)
 
 # --- AUTO-DETECT WORKING MODEL ---
-# This asks Google for a list of valid models for your API key to prevent 404 errors.
 @st.cache_resource
 def get_working_model():
     for m in genai.list_models():
         if 'generateContent' in m.supported_generation_methods:
-            if 'flash' in m.name.lower(): # Prefers the faster flash models
+            if 'flash' in m.name.lower(): 
                 return m.name
-    # Fallback to standard 1.5 pro if flash isn't available
     return 'models/gemini-1.5-pro' 
 
-# Initialize the model using the auto-detected name
 try:
     valid_model_name = get_working_model()
     model = genai.GenerativeModel(valid_model_name)
@@ -64,49 +61,56 @@ if st.button("Start AI Agent Pipeline") and jd:
             Reason: [1 short sentence explainability]
             """
             
-            # Task 2: Simulated Engagement
+            # Task 2: Simulated Engagement (UPDATED WITH EXPLAINABILITY)
             engagement_prompt = f"""
             You are an AI recruiter. You sent this candidate ({candidate['name']}) a message about the job.
             Based on their hidden vibe ({candidate['vibe']}), simulate a short reply from them.
-            Then, assign an Interest Score from 0 to 100.
+            Then, assign an Interest Score from 0 to 100 and explain exactly how you calculated that score.
             Output strictly in this format:
             Reply: [Candidate's simulated message]
             Interest: [number]
+            Reasoning: [1 short sentence explaining why this score was given based on their reply and vibe]
             """
             
+            # --- EVALUATION BLOCK ---
             try:
-                # We put the actual API calls inside a try/except block to catch any remaining issues gracefully
                 match_response = model.generate_content(match_prompt).text
                 
                 score_line = [line for line in match_response.split('\n') if "Score:" in line][0]
                 reason_line = [line for line in match_response.split('\n') if "Reason:" in line][0]
                 match_score = int(score_line.replace("Score:", "").strip())
-                reason = reason_line.replace("Reason:", "").strip()
+                match_reason = reason_line.replace("Reason:", "").strip()
             except Exception as e:
                 match_score = 0
-                reason = f"Error evaluating: {str(e)}"
+                match_reason = f"Error: {str(e)}"
 
             try:
                 engage_response = model.generate_content(engagement_prompt).text
                 
+                # Parsing the new Reasoning line
                 reply_line = [line for line in engage_response.split('\n') if "Reply:" in line][0]
                 interest_line = [line for line in engage_response.split('\n') if "Interest:" in line][0]
+                reasoning_line = [line for line in engage_response.split('\n') if "Reasoning:" in line][0]
+                
                 simulated_reply = reply_line.replace("Reply:", "").strip()
                 interest_score = int(interest_line.replace("Interest:", "").strip())
+                interest_reason = reasoning_line.replace("Reasoning:", "").strip()
             except Exception as e:
                 interest_score = 0
                 simulated_reply = "Simulation failed."
+                interest_reason = "Could not calculate."
             
             # Save the data
             results.append({
                 "Candidate": candidate['name'],
-                "Current Title": candidate['title'],
-                "Match Score": match_score,
-                "Interest Score": interest_score,
-                "Explainability": reason,
-                "Simulated Chat": simulated_reply
+                "Title": candidate['title'],
+                "Match %": match_score,
+                "Match Reason": match_reason,
+                "Interest %": interest_score,
+                "Simulated Chat": simulated_reply,
+                "Interest Reason": interest_reason # Added to the final table!
             })
-            time.sleep(2) # Increased sleep slightly to be safe with rate limits
+            time.sleep(2) 
             
         # --- OUTPUT ---
         st.success("Scouting Complete!")
@@ -114,7 +118,7 @@ if st.button("Start AI Agent Pipeline") and jd:
         
         # Convert to a nice table and sort by combined scores
         df = pd.DataFrame(results)
-        df['Total Score'] = df['Match Score'] + df['Interest Score']
+        df['Total Score'] = df['Match %'] + df['Interest %']
         df = df.sort_values(by="Total Score", ascending=False).drop(columns=['Total Score'])
         
         st.dataframe(df, use_container_width=True)
