@@ -15,7 +15,12 @@ if not api_key:
     st.stop()
 
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash-latest')
+# Try the newest model, fallback to standard gemini-pro if the server complains
+try:
+    # Explicitly including the models/ prefix which some API endpoints require
+    model = genai.GenerativeModel('models/gemini-1.5-flash')
+except Exception as e:
+    model = genai.GenerativeModel('gemini-pro')
 
 # --- MOCK DATABASE ---
 # In a real app, this would be LinkedIn. For the prototype, we use dummy data.
