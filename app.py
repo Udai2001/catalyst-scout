@@ -15,18 +15,32 @@ if not api_key:
     st.stop()
 
 genai.configure(api_key=api_key)
-# Try the newest model, fallback to standard gemini-pro if the server complains
+
+# --- AUTO-DETECT WORKING MODEL ---
+# This asks Google for a list of valid models for your API key to prevent 404 errors.
+@st.cache_resource
+def get_working_model():
+    for m in genai.list_models():
+        if 'generateContent' in m.supported_generation_methods:
+            if 'flash' in m.name.lower(): # Prefers the faster flash models
+                return m.name
+    # Fallback to standard 1.5 pro if flash isn't available
+    return 'models/gemini-1.5-pro' 
+
+# Initialize the model using the auto-detected name
 try:
-    # Explicitly including the models/ prefix which some API endpoints require
-    model = genai.GenerativeModel('models/gemini-1.5-flash')
+    valid_model_name = get_working_model()
+    model = genai.GenerativeModel(valid_model_name)
+    st.sidebar.success(f"Connected to model: {valid_model_name}")
 except Exception as e:
-    model = genai.GenerativeModel('gemini-pro')
+    st.sidebar.error("Could not fetch models. Check your API key.")
+    st.stop()
+
 
 # --- MOCK DATABASE ---
-# In a real app, this would be LinkedIn. For the prototype, we use dummy data.
 candidates = [
     {"name": "Alice Chen", "title": "Senior Cloud Engineer", "skills": "AWS, Python, Kubernetes, Terraform", "vibe": "Looking for new challenges, loves automation."},
-    {"name": "Bob Smith", "title": "RPA Developer", "skills": "UiPath, Blue Prism, Python, SQL", "vibe": "Happy where he is, but will move for a massive pay bump."},
+    {"name": "Bob Smith", "title": "RPA Developer", "skills": "UiPath, Blue Prism, Python, SQL, PowerShell", "vibe": "Happy where he is, but will move for a massive pay bump."},
     {"name": "Charlie Davis", "title": "Junior IT Support", "skills": "Windows, Active Directory, basic networking", "vibe": "Desperate for a job, will say yes to anything."}
 ]
 
@@ -35,7 +49,7 @@ st.subheader("1. Input Job Description")
 jd = st.text_area("Paste the Job Description here:", height=150)
 
 if st.button("Start AI Agent Pipeline") and jd:
-    with st.spinner("Agent is analyzing JD and scouting candidates..."):
+    with st.spinner(f"Agent is analyzing JD and scouting using {valid_model_name}...") :
         results = []
         
         # --- THE AGENT LOOP ---
@@ -49,18 +63,7 @@ if st.button("Start AI Agent Pipeline") and jd:
             Score: [number]
             Reason: [1 short sentence explainability]
             """
-            match_response = model.generate_content(match_prompt).text
             
-            # Simple text parsing to get the score and reason
-            try:
-                score_line = [line for line in match_response.split('\n') if "Score:" in line][0]
-                reason_line = [line for line in match_response.split('\n') if "Reason:" in line][0]
-                match_score = int(score_line.replace("Score:", "").strip())
-                reason = reason_line.replace("Reason:", "").strip()
-            except:
-                match_score = 50
-                reason = "AI evaluation error."
-
             # Task 2: Simulated Engagement
             engagement_prompt = f"""
             You are an AI recruiter. You sent this candidate ({candidate['name']}) a message about the job.
@@ -70,16 +73,29 @@ if st.button("Start AI Agent Pipeline") and jd:
             Reply: [Candidate's simulated message]
             Interest: [number]
             """
-            engage_response = model.generate_content(engagement_prompt).text
             
             try:
+                # We put the actual API calls inside a try/except block to catch any remaining issues gracefully
+                match_response = model.generate_content(match_prompt).text
+                
+                score_line = [line for line in match_response.split('\n') if "Score:" in line][0]
+                reason_line = [line for line in match_response.split('\n') if "Reason:" in line][0]
+                match_score = int(score_line.replace("Score:", "").strip())
+                reason = reason_line.replace("Reason:", "").strip()
+            except Exception as e:
+                match_score = 0
+                reason = f"Error evaluating: {str(e)}"
+
+            try:
+                engage_response = model.generate_content(engagement_prompt).text
+                
                 reply_line = [line for line in engage_response.split('\n') if "Reply:" in line][0]
                 interest_line = [line for line in engage_response.split('\n') if "Interest:" in line][0]
                 simulated_reply = reply_line.replace("Reply:", "").strip()
                 interest_score = int(interest_line.replace("Interest:", "").strip())
-            except:
-                interest_score = 50
-                simulated_reply = "Could not simulate reply."
+            except Exception as e:
+                interest_score = 0
+                simulated_reply = "Simulation failed."
             
             # Save the data
             results.append({
@@ -90,7 +106,7 @@ if st.button("Start AI Agent Pipeline") and jd:
                 "Explainability": reason,
                 "Simulated Chat": simulated_reply
             })
-            time.sleep(1) # Prevent hitting API rate limits
+            time.sleep(2) # Increased sleep slightly to be safe with rate limits
             
         # --- OUTPUT ---
         st.success("Scouting Complete!")
