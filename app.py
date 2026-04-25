@@ -60,8 +60,9 @@ jd = st.text_area("Paste the Job Description here:", height=150)
 col1, col2 = st.columns([1, 2])
 with col1:
     num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=len(all_candidates), value=min(5, len(all_candidates)))
+    # NEW: Selection Strategy Toggle
+    sample_strategy = st.radio("Candidate Selection:", options=["Random", "From Start", "From End"], horizontal=True)
 
-# --- PIPELINE EXECUTION ---
 # --- PIPELINE EXECUTION ---
 if st.button("Start AI Agent Pipeline"):
     if not jd.strip():
@@ -96,12 +97,21 @@ if st.button("Start AI Agent Pipeline"):
         if not domain_candidates:
             st.error("Discovery Failed: No candidates in the database match this job category.")
         else:
-            # Sample ONLY from the relevant domain list!
+            # --- 2. APPLY SELECTION STRATEGY ---
             actual_num_to_screen = min(num_to_screen, len(domain_candidates))
-            candidates_to_screen = random.sample(domain_candidates, actual_num_to_screen)
+            
+            if sample_strategy == "From Start":
+                candidates_to_screen = domain_candidates[:actual_num_to_screen]
+            elif sample_strategy == "From End":
+                candidates_to_screen = domain_candidates[-actual_num_to_screen:]
+            else:
+                candidates_to_screen = random.sample(domain_candidates, actual_num_to_screen)
             
             with st.spinner(f"Agent discovered {len(domain_candidates)} potential profiles. Scouting top {actual_num_to_screen} using {valid_model_name}...") :
                 results = []
+                
+                # --- THE AGENT LOOP ---
+                # (Keep your existing loop code from here down!)
                 
                 # --- THE AGENT LOOP ---
                 # (Keep your existing loop code from here down!)            
