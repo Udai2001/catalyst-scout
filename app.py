@@ -10,6 +10,76 @@ import string
 st.set_page_config(page_title="Catalyst Scout AI", page_icon="🎯", layout="wide")
 st.title("🎯 Catalyst AI: Talent Scouting & Engagement Agent")
 
+# --- CUSTOM FIGMA-STYLE UI INJECTION ---
+st.markdown("""
+<style>
+    /* Dark Cloud/Tech Background with Dot Matrix */
+    .stApp {
+        background-color: #0a0e17;
+        background-image: radial-gradient(rgba(0, 201, 255, 0.15) 1px, transparent 1px);
+        background-size: 25px 25px;
+    }
+    
+    /* Gradient App Title */
+    h1 {
+        background: -webkit-linear-gradient(45deg, #00C9FF, #92FE9D);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        padding-bottom: 10px;
+    }
+    
+    /* Sleek Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: rgba(15, 23, 42, 0.95);
+        border-right: 1px solid rgba(0, 201, 255, 0.2);
+    }
+    
+    /* Premium Glowing Button */
+    .stButton>button {
+        background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(142, 84, 233, 0.4);
+        width: 100%;
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(142, 84, 233, 0.7);
+        border: none;
+        color: white;
+    }
+
+    /* Glassmorphism Input Areas */
+    .stTextArea textarea {
+        background-color: rgba(15, 23, 42, 0.7) !important;
+        border: 1px solid #334155 !important;
+        color: #e2e8f0 !important;
+        border-radius: 8px;
+    }
+    
+    .stTextArea textarea:focus {
+        border-color: #00C9FF !important;
+        box-shadow: 0 0 12px rgba(0, 201, 255, 0.3) !important;
+    }
+
+    /* DataFrame Table Styling */
+    [data-testid="stDataFrame"] {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 201, 255, 0.2);
+    }
+</style>
+""", unsafe_allow_html=True)
+# ---------------------------------------
+
 st.sidebar.header("Agent Configuration")
 api_key = st.sidebar.text_input("Enter Google Gemini API Key:", type="password")
 # THE HACKATHON LIFESAVER: Demo Mode Toggle
