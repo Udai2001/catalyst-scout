@@ -85,21 +85,32 @@ if st.button("Start AI Agent Pipeline"):
         
 # --- THE AGENT LOOP ---
         for candidate in candidates_to_screen:
-            if demo_mode:
+            
+            # --- THE BOUNCER (Global Pre-Check) ---
+            import string
+            # Clean punctuation so we only match exact whole words
+            jd_clean = jd.translate(str.maketrans('', '', string.punctuation)).lower()
+            jd_words = set(jd_clean.split())
+            
+            # Our strict list of required whole words
+            tech_keywords = {'developer', 'engineer', 'cloud', 'rpa', 'automation', 'it', 'data', 'software', 'ai', 'tech', 'programmer', 'scripting'}
+            is_tech_jd = bool(jd_words.intersection(tech_keywords))
+
+            if not is_tech_jd:
+                # If it's a Retail or HR job, instantly reject. No API calls needed!
+                match_score = 0
+                match_reason = "Complete mismatch. Non-technical JD."
+                interest_score = 0
+                simulated_reply = "I believe you have the wrong person. My background is strictly in technical engineering."
+                interest_reason = "Candidate immediately rejected the irrelevant outreach."
+                time.sleep(0.5)
+                
+            elif demo_mode:
                 # --- LOCAL DEMO ENGINE ---
                 time.sleep(0.8) 
-                
                 skills_lower = candidate['skills'].lower()
-                jd_lower = jd.lower()
                 
-                # Check if the JD is even technical before scoring
-                tech_keywords = ['developer', 'engineer', 'cloud', 'rpa', 'automation', 'it', 'data', 'software', 'ai', 'tech', 'programmer']
-                is_tech_jd = any(kw in jd_lower for kw in tech_keywords)
-
-                if not is_tech_jd:
-                    match_score = random.randint(0, 5)
-                    match_reason = "Complete mismatch. Non-technical JD for a specialized IT professional."
-                elif "uipath" in skills_lower or "python" in skills_lower or "automation" in skills_lower:
+                if "uipath" in skills_lower or "python" in skills_lower or "automation" in skills_lower:
                     match_score = random.randint(85, 98)
                     match_reason = f"Strong alignment. Candidate possesses key skills like {candidate['skills'].split(',')[0]} required for the automation workflows."
                 else:
@@ -107,11 +118,7 @@ if st.button("Start AI Agent Pipeline"):
                     match_reason = f"Partial match. Lacks core automation stack experience, offering mostly {candidate['skills'].split(',')[0]}."
 
                 vibe_lower = candidate['vibe'].lower()
-                if not is_tech_jd:
-                    interest_score = 0
-                    simulated_reply = "I believe you have the wrong person. My background is strictly in technical engineering."
-                    interest_reason = "Candidate immediately rejected the irrelevant outreach."
-                elif "desperate" in vibe_lower or "motivated" in vibe_lower or "startup" in vibe_lower:
+                if "desperate" in vibe_lower or "motivated" in vibe_lower or "startup" in vibe_lower:
                     interest_score = random.randint(88, 99)
                     simulated_reply = "Thank you for reaching out! This role perfectly aligns with my current career goals. When can we chat?"
                     interest_reason = "Candidate is actively looking and highly receptive to new technical challenges."
@@ -140,7 +147,6 @@ if st.button("Start AI Agent Pipeline"):
                 Instructions:
                 - Return a match score between 0 and 100 (integer only).
                 - Base the score on skill overlap, relevance of title, and overall alignment.
-                - CRITICAL GUARDRAIL: If the Job Description is for a completely non-technical role (e.g., Sales, HR, Healthcare, Retail) and the candidate is in IT/Engineering, the Match Score MUST be 0.
                 - Do not assume missing information.
                 - Keep reasoning concise (max 15 words).
 
@@ -162,7 +168,6 @@ if st.button("Start AI Agent Pipeline"):
 
                 Instructions:
                 - Simulate a short, realistic email reply based solely on their vibe.
-                - CRITICAL GUARDRAIL: If the Match Score is 0 due to an irrelevant non-technical JD, the candidate's reply must point out the error, and the Interest Score MUST be 0.
                 - Return an Interest Score between 0 and 100 (integer only).
                 - Keep reasoning concise (max 15 words).
 
