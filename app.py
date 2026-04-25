@@ -59,7 +59,7 @@ jd = st.text_area("Paste the Job Description here:", height=150)
 
 col1, col2 = st.columns([1, 2])
 with col1:
-    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=20, value=5)
+    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=len(all_candidates), value=min(5, len(all_candidates)))
 
 # --- PIPELINE EXECUTION ---
 if st.button("Start AI Agent Pipeline"):
