@@ -62,15 +62,49 @@ with col1:
     num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=len(all_candidates), value=min(5, len(all_candidates)))
 
 # --- PIPELINE EXECUTION ---
+# --- PIPELINE EXECUTION ---
 if st.button("Start AI Agent Pipeline"):
     if not jd.strip():
         st.warning("Action Required: Please paste a Job Description to initiate the scouting pipeline.")
     else:
-        candidates_to_screen = random.sample(all_candidates, num_to_screen)
+        # --- 1. DOMAIN DISCOVERY FILTER ---
+        jd_lower = jd.lower()
+        tech_keywords = [
+            'developer', 'engineer', 'cloud', 'rpa', 'automation', 'it', 
+            'data', 'software', 'ai', 'tech', 'programmer', 'scripting',
+            'python', 'uipath', 'aws', 'azure', 'bot', 'code', 'database',
+            'network', 'security', 'machine learning', 'frontend', 'backend'
+        ]
         
-        with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
-            results = []
+        # Determine if the pasted JD is Technical or Non-Technical
+        is_tech_jd = any(kw in jd_lower for kw in tech_keywords)
+        
+        # Filter the database BEFORE the AI runs
+        domain_candidates = []
+        for c in all_candidates:
+            # Check if the candidate's profile is technical
+            c_text = (c['title'] + " " + c['skills']).lower()
+            is_tech_candidate = any(kw in c_text for kw in tech_keywords)
             
+            # Group them! Tech JDs only get Tech candidates. Non-Tech gets Non-Tech.
+            if is_tech_jd and is_tech_candidate:
+                domain_candidates.append(c)
+            elif not is_tech_jd and not is_tech_candidate:
+                domain_candidates.append(c)
+                
+        # Safety check in case the filter finds no one
+        if not domain_candidates:
+            st.error("Discovery Failed: No candidates in the database match this job category.")
+        else:
+            # Sample ONLY from the relevant domain list!
+            actual_num_to_screen = min(num_to_screen, len(domain_candidates))
+            candidates_to_screen = random.sample(domain_candidates, actual_num_to_screen)
+            
+            with st.spinner(f"Agent discovered {len(domain_candidates)} potential profiles. Scouting top {actual_num_to_screen} using {valid_model_name}...") :
+                results = []
+                
+                # --- THE AGENT LOOP ---
+                # (Keep your existing loop code from here down!)            
             # --- THE AGENT LOOP ---
             for candidate in candidates_to_screen:
                 
