@@ -64,14 +64,14 @@ if st.button("Start AI Agent Pipeline") and jd:
     with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
         results = []
         
-        # --- THE AGENT LOOP ---
+# --- THE AGENT LOOP ---
         for candidate in candidates_to_screen:
             # Task 1: Match Score
             match_prompt = f"""
             Job Description: {jd}
             Candidate Profile: {candidate['title']}, Skills: {candidate['skills']}
             Calculate a Match Score from 0 to 100. 
-            Output strictly in this format: 
+            Output strictly in this format without any bolding, markdown, or asterisks: 
             Score: [number]
             Reason: [1 short sentence explainability]
             """
@@ -80,28 +80,33 @@ if st.button("Start AI Agent Pipeline") and jd:
             engagement_prompt = f"""
             You are an AI recruiter. You sent this candidate ({candidate['name']}) a message about the job.
             Based on their hidden vibe ({candidate['vibe']}), simulate a short reply from them.
-            Then, assign an Interest Score from 0 to 100 and explain exactly how you calculated that score.
-            Output strictly in this format:
+            Then, assign an Interest Score from 0 to 100.
+            Output strictly in this format without any bolding, markdown, or asterisks:
             Reply: [Candidate's simulated message]
             Interest: [number]
-            Reasoning: [1 short sentence explaining why this score was given based on their reply and vibe]
+            Reasoning: [1 short sentence explaining why this score was given]
             """
             
             try:
                 match_response = model.generate_content(match_prompt).text
-                score_line = [line for line in match_response.split('\n') if "Score:" in line][0]
-                reason_line = [line for line in match_response.split('\n') if "Reason:" in line][0]
+                # Clean out any accidental markdown bolding
+                clean_match = match_response.replace("**", "").replace("*", "")
+                
+                score_line = [line for line in clean_match.split('\n') if "Score:" in line][0]
+                reason_line = [line for line in clean_match.split('\n') if "Reason:" in line][0]
                 match_score = int(score_line.replace("Score:", "").strip())
                 match_reason = reason_line.replace("Reason:", "").strip()
             except Exception as e:
                 match_score = 0
-                match_reason = f"Parsing Error"
+                match_reason = f"API/Parse Error: {str(e)[:40]}" # Shows the real error!
 
             try:
                 engage_response = model.generate_content(engagement_prompt).text
-                reply_line = [line for line in engage_response.split('\n') if "Reply:" in line][0]
-                interest_line = [line for line in engage_response.split('\n') if "Interest:" in line][0]
-                reasoning_line = [line for line in engage_response.split('\n') if "Reasoning:" in line][0]
+                clean_engage = engage_response.replace("**", "").replace("*", "")
+                
+                reply_line = [line for line in clean_engage.split('\n') if "Reply:" in line][0]
+                interest_line = [line for line in clean_engage.split('\n') if "Interest:" in line][0]
+                reasoning_line = [line for line in clean_engage.split('\n') if "Reasoning:" in line][0]
                 
                 simulated_reply = reply_line.replace("Reply:", "").strip()
                 interest_score = int(interest_line.replace("Interest:", "").strip())
@@ -109,7 +114,7 @@ if st.button("Start AI Agent Pipeline") and jd:
             except Exception as e:
                 interest_score = 0
                 simulated_reply = "Simulation failed."
-                interest_reason = "Could not calculate."
+                interest_reason = f"API/Parse Error: {str(e)[:40]}" # Shows the real error!
             
             results.append({
                 "Candidate": candidate['name'],
@@ -120,7 +125,8 @@ if st.button("Start AI Agent Pipeline") and jd:
                 "Simulated Chat": simulated_reply,
                 "Interest Reason": interest_reason 
             })
-            time.sleep(2) 
+            # Increased sleep to 4 seconds to respect Gemini Free Tier limits (15 Requests/Min)
+            time.sleep(4)
             
         # --- OUTPUT ---
         st.success("Scouting Complete!")
