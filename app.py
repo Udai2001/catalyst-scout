@@ -2,12 +2,13 @@ import streamlit as st
 import google.generativeai as genai
 import pandas as pd
 import time
+import json
+import random
 
 # --- SETUP ---
 st.set_page_config(page_title="Catalyst Scout AI", layout="wide")
 st.title("🚀 Catalyst AI: Talent Scouting & Engagement Agent")
 
-# Ask the user for their API key on the sidebar
 api_key = st.sidebar.text_input("Enter Google Gemini API Key:", type="password")
 
 if not api_key:
@@ -34,23 +35,37 @@ except Exception as e:
     st.stop()
 
 
-# --- MOCK DATABASE ---
-candidates = [
-    {"name": "Alice Chen", "title": "Senior Cloud Engineer", "skills": "AWS, Python, Kubernetes, Terraform", "vibe": "Looking for new challenges, loves automation."},
-    {"name": "Bob Smith", "title": "RPA Developer", "skills": "UiPath, Blue Prism, Python, SQL, PowerShell", "vibe": "Happy where he is, but will move for a massive pay bump."},
-    {"name": "Charlie Davis", "title": "Junior IT Support", "skills": "Windows, Active Directory, basic networking", "vibe": "Desperate for a job, will say yes to anything."}
-]
+# --- LOAD DATABASE ---
+@st.cache_data
+def load_candidates():
+    try:
+        with open("candidates.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        st.error("Could not find candidates.json. Ensure it is uploaded to the repository.")
+        st.stop()
+
+all_candidates = load_candidates()
+st.sidebar.info(f"Database loaded: {len(all_candidates)} total candidates available.")
 
 # --- UI INPUT ---
 st.subheader("1. Input Job Description")
 jd = st.text_area("Paste the Job Description here:", height=150)
 
+# The slider to prevent API rate limits and keep the demo fast
+col1, col2 = st.columns([1, 2])
+with col1:
+    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=20, value=5)
+
 if st.button("Start AI Agent Pipeline") and jd:
-    with st.spinner(f"Agent is analyzing JD and scouting using {valid_model_name}...") :
+    # Randomly sample the requested number of candidates from the DB for the demo
+    candidates_to_screen = random.sample(all_candidates, num_to_screen)
+    
+    with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
         results = []
         
         # --- THE AGENT LOOP ---
-        for candidate in candidates:
+        for candidate in candidates_to_screen:
             # Task 1: Match Score
             match_prompt = f"""
             Job Description: {jd}
@@ -61,7 +76,7 @@ if st.button("Start AI Agent Pipeline") and jd:
             Reason: [1 short sentence explainability]
             """
             
-            # Task 2: Simulated Engagement (UPDATED WITH EXPLAINABILITY)
+            # Task 2: Simulated Engagement
             engagement_prompt = f"""
             You are an AI recruiter. You sent this candidate ({candidate['name']}) a message about the job.
             Based on their hidden vibe ({candidate['vibe']}), simulate a short reply from them.
@@ -72,22 +87,18 @@ if st.button("Start AI Agent Pipeline") and jd:
             Reasoning: [1 short sentence explaining why this score was given based on their reply and vibe]
             """
             
-            # --- EVALUATION BLOCK ---
             try:
                 match_response = model.generate_content(match_prompt).text
-                
                 score_line = [line for line in match_response.split('\n') if "Score:" in line][0]
                 reason_line = [line for line in match_response.split('\n') if "Reason:" in line][0]
                 match_score = int(score_line.replace("Score:", "").strip())
                 match_reason = reason_line.replace("Reason:", "").strip()
             except Exception as e:
                 match_score = 0
-                match_reason = f"Error: {str(e)}"
+                match_reason = f"Parsing Error"
 
             try:
                 engage_response = model.generate_content(engagement_prompt).text
-                
-                # Parsing the new Reasoning line
                 reply_line = [line for line in engage_response.split('\n') if "Reply:" in line][0]
                 interest_line = [line for line in engage_response.split('\n') if "Interest:" in line][0]
                 reasoning_line = [line for line in engage_response.split('\n') if "Reasoning:" in line][0]
@@ -100,7 +111,6 @@ if st.button("Start AI Agent Pipeline") and jd:
                 simulated_reply = "Simulation failed."
                 interest_reason = "Could not calculate."
             
-            # Save the data
             results.append({
                 "Candidate": candidate['name'],
                 "Title": candidate['title'],
@@ -108,7 +118,7 @@ if st.button("Start AI Agent Pipeline") and jd:
                 "Match Reason": match_reason,
                 "Interest %": interest_score,
                 "Simulated Chat": simulated_reply,
-                "Interest Reason": interest_reason # Added to the final table!
+                "Interest Reason": interest_reason 
             })
             time.sleep(2) 
             
@@ -116,7 +126,6 @@ if st.button("Start AI Agent Pipeline") and jd:
         st.success("Scouting Complete!")
         st.subheader("2. Ranked Shortlist")
         
-        # Convert to a nice table and sort by combined scores
         df = pd.DataFrame(results)
         df['Total Score'] = df['Match %'] + df['Interest %']
         df = df.sort_values(by="Total Score", ascending=False).drop(columns=['Total Score'])
