@@ -131,12 +131,13 @@ if st.button("Start AI Agent Pipeline") and jd:
                 "Interest Reason": interest_reason 
             })
             
-        # --- OUTPUT ---
+# --- OUTPUT ---
         st.success("Scouting Complete!")
         st.subheader("2. Ranked Shortlist")
         
         df = pd.DataFrame(results)
-        df['Total Score'] = df['Match %'] + df['Interest %']
-        df = df.sort_values(by="Total Score", ascending=False).drop(columns=['Total Score'])
+        
+        # Sort primarily by Match %, then secondarily by Interest %
+        df = df.sort_values(by=["Match %", "Interest %"], ascending=[False, False])
         
         st.dataframe(df, use_container_width=True)
