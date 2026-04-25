@@ -60,15 +60,25 @@ col1, col2 = st.columns([1, 2])
 with col1:
     num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=20, value=5)
 
-# Updated logic to catch the empty JD
+# Updated logic to catch empty text AND gibberish
 if st.button("Start AI Agent Pipeline"):
+    # 1. Check if the box is completely empty
     if not jd.strip():
         st.warning("Action Required: Please paste a Job Description to initiate the scouting pipeline.")
     else:
-        candidates_to_screen = random.sample(all_candidates, num_to_screen)
+        # 2. Heuristic check for "mumble jumble"
+        words = jd.split()
+        longest_word = max(len(w) for w in words) if words else 0
         
-        with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
-            results = []
+        # A real JD has more than 5 words, and real words aren't 35 characters long.
+        if len(words) < 5 or longest_word > 35:
+            st.error("Validation Error: The provided text does not appear to be a valid, structured Job Description. Please input standard role requirements.")
+        else:
+            # If it passes all checks, run the pipeline!
+            candidates_to_screen = random.sample(all_candidates, num_to_screen)
+            
+            with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
+                results = []
             
             # --- THE AGENT LOOP ---
             # [The rest of your loop stays exactly the same from here down!]
