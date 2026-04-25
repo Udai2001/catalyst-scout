@@ -58,13 +58,20 @@ jd = st.text_area("Paste the Job Description here:", height=150)
 
 col1, col2 = st.columns([1, 2])
 with col1:
-    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=50, value=5)
+    num_to_screen = st.slider("Select batch size to screen:", min_value=1, max_value=20, value=5)
 
-if st.button("Start AI Agent Pipeline") and jd:
-    candidates_to_screen = random.sample(all_candidates, num_to_screen)
-    
-    with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
-        results = []
+# Updated logic to catch the empty JD
+if st.button("Start AI Agent Pipeline"):
+    if not jd.strip():
+        st.warning("Action Required: Please paste a Job Description to initiate the scouting pipeline.")
+    else:
+        candidates_to_screen = random.sample(all_candidates, num_to_screen)
+        
+        with st.spinner(f"Agent is scouting {num_to_screen} candidates using {valid_model_name}...") :
+            results = []
+            
+            # --- THE AGENT LOOP ---
+            # [The rest of your loop stays exactly the same from here down!]
         
 # --- THE AGENT LOOP ---
         for candidate in candidates_to_screen:
