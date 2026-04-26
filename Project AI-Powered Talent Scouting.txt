@@ -14,7 +14,7 @@ Dual-Engine Execution: * Live API Engine: Constructs highly structured, zero-sho
 
 Local Heuristic Engine (Demo Mode): A local fallback engine that uses keyword overlap and randomized heuristics to bypass API rate limits during high-traffic presentations, ensuring 100% uptime.
 
-Multi-Tier Output Sorting: Results are structured into a Pandas DataFrame and strictly sorted first by highest Match %, and secondarily by highest Interest % as the tie-breaker, perfectly mirroring a recruiter's priorities.
+Multi-Tier Output Sorting: Results are structured into a Pandas DataFrame and strictly sorted first by highest Match %, and secondarily by highest Interest % as the tie-breaker, perfectly mirroring a recruiter's priorities. The Arcitecture Diagram is given in Readme.MD file in the same repo.
 
 3. Engineering Trade-offs
 In developing this agent, several deliberate trade-offs were made to optimize for production readiness:
