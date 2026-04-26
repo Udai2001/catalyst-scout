@@ -139,6 +139,7 @@ if st.button("Start AI Agent Pipeline"):
         st.warning("Action Required: Please paste a Job Description to initiate the scouting pipeline.")
     else:
         # --- 1. DOMAIN DISCOVERY FILTER ---
+       # --- 1. DOMAIN DISCOVERY FILTER & EXPERIENCE GATEKEEPER ---
         import re
         
         jd_lower = jd.lower()
@@ -152,9 +153,13 @@ if st.button("Start AI Agent Pipeline"):
         # 1. Determine if Technical using whole-word boundaries
         is_tech_jd = any(re.search(rf'\b{re.escape(kw)}\b', jd_lower) for kw in tech_keywords)
         
-        # 2. Extract required experience from JD (e.g., looks for "5+ years", "3 yrs")
-        exp_match = re.search(r'(\d+)\s*\+?\s*(?:year|yr)s?', jd_lower)
-        required_exp = int(exp_match.group(1)) if exp_match else 0
+        # 2. Extract required experience from JD (Finds ALL matches and takes the highest)
+        exp_matches = re.findall(r'(\d+)\s*\+?\s*(?:year|yr)s?', jd_lower)
+        required_exp = max([int(m) for m in exp_matches]) if exp_matches else 0
+        
+        # UI Feature: Show the recruiter what the Gatekeeper is doing
+        if required_exp > 0:
+            st.info(f"🛡️ Gatekeeper Active: Strictly enforcing a minimum of {required_exp} years of experience.")
         
         # Filter the database BEFORE the AI runs
         domain_candidates = []
@@ -163,7 +168,7 @@ if st.button("Start AI Agent Pipeline"):
             c_text = (c['title'] + " " + c['skills']).lower()
             is_tech_candidate = any(re.search(rf'\b{re.escape(kw)}\b', c_text) for kw in tech_keywords)
             
-            # Extract candidate's numerical experience from their JSON (e.g., "6 years" -> 6)
+            # Extract candidate's numerical experience from their JSON
             c_exp_str = str(c.get('experience', '0'))
             c_exp_match = re.search(r'(\d+)', c_exp_str)
             c_exp = int(c_exp_match.group(1)) if c_exp_match else 0
@@ -171,8 +176,7 @@ if st.button("Start AI Agent Pipeline"):
             # Group them by domain AND enforce the experience threshold
             if (is_tech_jd and is_tech_candidate) or (not is_tech_jd and not is_tech_candidate):
                 if c_exp >= required_exp:
-                    domain_candidates.append(c)
-                
+                    domain_candidates.append(c)                
                 # --- THE AGENT LOOP ---
                 # (Keep your existing loop code from here down!)
                 
