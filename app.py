@@ -138,7 +138,7 @@ if st.button("Start AI Agent Pipeline"):
     if not jd.strip():
         st.warning("Action Required: Please paste a Job Description to initiate the scouting pipeline.")
     else:
-        # --- 1. DOMAIN DISCOVERY FILTER ---
+     
        # --- 1. DOMAIN DISCOVERY FILTER & EXPERIENCE GATEKEEPER ---
         import re
         
@@ -176,7 +176,33 @@ if st.button("Start AI Agent Pipeline"):
             # Group them by domain AND enforce the experience threshold
             if (is_tech_jd and is_tech_candidate) or (not is_tech_jd and not is_tech_candidate):
                 if c_exp >= required_exp:
-                    domain_candidates.append(c)                
+                    domain_candidates.append(c)      
+                # Group them by domain AND enforce the experience threshold
+            if (is_tech_jd and is_tech_candidate) or (not is_tech_jd and not is_tech_candidate):
+                if c_exp >= required_exp:
+                    domain_candidates.append(c)
+                    
+        # --- Safety Check: Did the Gatekeeper filter EVERYONE out? ---
+        if not domain_candidates:
+            st.error(f"Discovery Failed: No candidates found matching this domain with {required_exp}+ years of experience.")
+        else:
+            # --- 2. APPLY SELECTION STRATEGY ---
+            actual_num_to_screen = min(num_to_screen, len(domain_candidates))
+            
+            if sample_strategy == "From Start":
+                candidates_to_screen = domain_candidates[:actual_num_to_screen]
+            elif sample_strategy == "From End":
+                candidates_to_screen = domain_candidates[-actual_num_to_screen:]
+            else:
+                import random
+                candidates_to_screen = random.sample(domain_candidates, actual_num_to_screen)
+            
+            with st.spinner(f"Agent discovered {len(domain_candidates)} potential profiles. Scouting top {actual_num_to_screen}..."):
+                results = []
+                
+                # --- THE AGENT LOOP ---
+                for candidate in candidates_to_screen:
+                    # (Keep your existing scoring logic from here down!)
                 # --- THE AGENT LOOP ---
                 # (Keep your existing loop code from here down!)
                 
