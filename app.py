@@ -234,6 +234,8 @@ if st.button("Start AI Agent Pipeline"):
 
                 else:
                     # --- LIVE API ENGINE ---
+                    
+                    # 1. Define the Match Prompt
                     match_prompt = f"""
                     You are an AI hiring evaluator.
 
@@ -244,10 +246,11 @@ if st.button("Start AI Agent Pipeline"):
                     Job Description: {jd}
                     Candidate Title: {candidate['title']}
                     Candidate Skills: {candidate['skills']}
+                    Candidate Experience: {candidate.get('experience', 'Not specified')}
 
                     Instructions:
                     - Return a match score between 0 and 100 (integer only).
-                    - Base the score on skill overlap, relevance of title, and overall alignment.
+                    - Base the score on skill overlap, relevance of title, years of experience, and overall alignment.
                     - Do not assume missing information.
                     - Keep reasoning concise (max 15 words).
 
@@ -256,6 +259,16 @@ if st.button("Start AI Agent Pipeline"):
                     Reason: <short explanation>
                     """
                     
+                    # 2. Ask Gemini for the Match Score FIRST
+                    try:
+                        match_response = model.generate_content(match_prompt).text.replace("**", "").replace("*", "")
+                        match_score = int([line for line in match_response.split('\n') if "Score:" in line][0].replace("Score:", "").strip())
+                        match_reason = [line for line in match_response.split('\n') if "Reason:" in line][0].replace("Reason:", "").strip()
+                    except Exception as e:
+                        match_score = 0
+                        match_reason = f"API Error: {str(e)[:40]}"
+
+                    # 3. NOW define the Engagement Prompt (match_score exists now!)
                     engagement_prompt = f"""
                     You are an AI recruiter.
 
@@ -278,14 +291,7 @@ if st.button("Start AI Agent Pipeline"):
                     Reasoning: <short explanation>
                     """
                     
-                    try:
-                        match_response = model.generate_content(match_prompt).text.replace("**", "").replace("*", "")
-                        match_score = int([line for line in match_response.split('\n') if "Score:" in line][0].replace("Score:", "").strip())
-                        match_reason = [line for line in match_response.split('\n') if "Reason:" in line][0].replace("Reason:", "").strip()
-                    except Exception as e:
-                        match_score = 0
-                        match_reason = f"API Error: {str(e)[:40]}"
-
+                    # 4. Ask Gemini for the Interest Score
                     try:
                         engage_response = model.generate_content(engagement_prompt).text.replace("**", "").replace("*", "")
                         simulated_reply = [line for line in engage_response.split('\n') if "Reply:" in line][0].replace("Reply:", "").strip()
@@ -296,7 +302,7 @@ if st.button("Start AI Agent Pipeline"):
                         simulated_reply = "Simulation failed."
                         interest_reason = f"API Error: {str(e)[:40]}"
                     
-                    time.sleep(6) 
+                    time.sleep(6)
                 
                 # Save the data
                 results.append({
