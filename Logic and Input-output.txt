@@ -29,4 +29,32 @@ The final Pandas DataFrame sorts the shortlist primarily by the **Match Score** 
 **Internal Processing:**
 The Domain Filter identifies technical keywords (`automation`, `cloud`, `UiPath`, `Terraform`) and filters out all HR, Sales, and Marketing profiles from the database before scoring.
 
-Output is given in Readme file.md
+Output is given below:
+
+=====================================================================================================================
+RANK | CANDIDATE          | TITLE                   | EXP.   | MATCH | MATCH REASON                             | INT 
+=====================================================================================================================
+ 1   | Arthur Pendragon   | Senior Cloud Engineer   | 8 yrs  |  94%  | Strong overlap in Terraform, Kubernetes  | 95% 
+     |                    |                         |        |       | and Docker. Experience aligns.           |
+---------------------------------------------------------------------------------------------------------------------
+     > SIMULATED CHAT: "Thank you for reaching out! Building digital workers aligns perfectly with my goals."
+     > INTEREST REASON: Highly motivated and ready for new challenges.
+=====================================================================================================================
+ 2   | Guinevere Smith    | RPA Developer           | 6 yrs  |  88%  | Excellent UiPath background, but lacks   | 82%
+     |                    |                         |        |       | requested containerization skills.       |
+---------------------------------------------------------------------------------------------------------------------
+     > SIMULATED CHAT: "Sounds interesting. Could you send details on the team structure?"
+     > INTEREST REASON: Moderate interest based on professional curiosity.
+=====================================================================================================================
+ 3   | Lancelot Jones     | DevOps Engineer         | 2 yrs  |  45%  | Partial tech match. Junior experience    | 99%
+     |                    |                         |        |       | heavily penalized against senior req.    |
+---------------------------------------------------------------------------------------------------------------------
+     > SIMULATED CHAT: "I am ready to start immediately! When can we schedule a call?"
+     > INTEREST REASON: Desperate to leave current role, highly eager.
+=====================================================================================================================
+ 4   | Merlin Davis       | AI Agent Developer      | 12 yrs |  35%  | Experience level fits, but tech stack    | 40%
+     |                    |                         |        |       | relies on Python, not UiPath/Terraform.  |
+---------------------------------------------------------------------------------------------------------------------
+     > SIMULATED CHAT: "I'm comfortable in my current role. What is the compensation?"
+     > INTEREST REASON: Passive. Requires financial incentive.
+=====================================================================================================================
